@@ -1,0 +1,108 @@
+fieldset {
+  margin: 2em 0;
+  padding: 1em 2em;
+  border: solid 1px black;
+  border-radius: 6px;
+  min-width: 200px;
+
+  background-color: white;
+}
+
+label {
+  display: block;
+  margin-top: 1em;
+}
+
+.readYet label {
+  margin-top: 0;
+}
+
+label:first-of-type {
+  margin-top: 0;
+}
+
+input {
+  padding: 0.5em;
+  border: solid 1px #999;
+}
+
+input[type="text"] {
+  width: 15em;
+}
+
+/* radio buttons */
+
+.readYet {
+  margin-bottom: 1em;
+}
+
+.readYet p {
+  margin-bottom: 0;
+}
+
+input[type="radio"] + label {
+  display: inline-block;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+/* Submit button */
+input[type="submit"] {
+  padding: 0.5em 1em;
+  border-radius: 6px;
+  background-color: black;
+  color: white;
+  font-size: 0.8em;
+}
+
+/* Close Button */
+
+.closeBtn {
+  color: #ccc;
+  float: right;
+  font-size: 30px;
+}
+
+.closeBtn:hover,
+.closeBtn:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Large screen rules */
+
+@media screen and (min-width: 430px) {
+  legend {
+    font-size: 1.75em;
+  }
+
+  fieldset {
+    width: 20%;
+    min-width: 320px;
+    margin: auto;
+  }
+
+  .readYet label {
+    display: inline-block;
+    padding-top: 0.5em;
+    margin-top: 0;
+    margin-right: 0.5em;
+  }
+}
+
+/* Modal Window */
+.modal {
+  border: solid 1px black;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}

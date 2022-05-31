@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="body">
+    <button id="modalBtn" class="button">Test Button</button>
+
+    <div id="simpleModal" class="modal">
+      <form action="" method="" class="form">
+        <fieldset>
+          <span class="closeBtn">&times;</span>
+          <div class="author">
+            <label for="author">Author</label>
+            <input type="text" id="author" />
+          </div>
+          <div class="title">
+            <label for="bookTitle">Title</label>
+            <input type="text" id="bookTitle" />
+          </div>
+          <div class="pages">
+            <label for="pgNumber">Pages</label>
+            <input type="number" id="pgNumber" />
+          </div>
+          <div class="readYet">
+            <p>Have you read it?</p>
+
+            <input type="radio" id="yes" />
+            <label for="">Yes</label>
+
+            <input type="radio" id="no" />
+            <label for="">No</label>
+          </div>
+          <div class="">
+            <input type="submit" id="sumbit" value="Add Book" />
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </body>
+  <script src="script.js"></script>
+</html>
