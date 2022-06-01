@@ -8,19 +8,22 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body class="body">
-    <button id="modalBtn" class="button">Test Button</button>
+    <header class="header">HEADER</header>
+    <div class="center">
+      <button id="modalBtn" class="button">Add Book+</button>
+    </div>
 
     <div id="simpleModal" class="modal">
-      <form action="" method="" class="form">
+      <form action="" method="" id="userForm" class="form">
         <fieldset>
           <span class="closeBtn">&times;</span>
           <div class="author">
             <label for="author">Author</label>
-            <input type="text" id="author" />
+            <input type="text" id="author" class="text-input" />
           </div>
           <div class="title">
             <label for="bookTitle">Title</label>
-            <input type="text" id="bookTitle" />
+            <input type="text" id="bookTitle" class="text-input" />
           </div>
           <div class="pages">
             <label for="pgNumber">Pages</label>
@@ -36,10 +39,12 @@
             <label for="">No</label>
           </div>
           <div class="">
-            <input type="submit" id="sumbit" value="Add Book" />
+            <button id="submitBtn" class="button">Submit</button>
+            <!-- <input type="submit" id="sumbit" value="Submit" /> -->
           </div>
         </fieldset>
       </form>
+      <div class="container"></div>
     </div>
   </body>
   <script src="script.js"></script>

@@ -6,10 +6,25 @@
 
 // Get modal
 const modal = document.getElementById("simpleModal");
+// Get form
+const form = document.getElementById("userForm");
 // Show modal
 const modalBtn = document.getElementById("modalBtn");
 // Close modal X Button
 const closeBtn = document.querySelector(".closeBtn");
+// close modal bacground click
+const closeModal = document.querySelector(".form");
+// Get input from form
+let nameInput = document.getElementById("author");
+let titleInput = document.getElementById("bookTitle");
+//textboxes
+const textbox = document.querySelectorAll("#author bookTitle");
+const submitButton = document.getElementById("submitBtn");
+// Inputs
+const inputs = document.querySelectorAll("input");
+// close modal Submit Button // Needs to be redone DRY
+const closeModalSubmit = (modal.style.display = "none");
+//////////////////////////////////////////////////////
 
 // Open Modal on Click
 modalBtn.addEventListener("click", function () {
@@ -23,8 +38,34 @@ closeBtn.addEventListener("click", function () {
 
 // Close modal window
 window.addEventListener("click", function (e) {
-  if (e.target === modal) {
+  if (e.target === modal || e.target === form) {
     document.querySelector(".modal").style.display = "none";
+  }
+});
+
+//get value of a text input
+
+document.querySelector("form.form").addEventListener("submit", function (e) {
+  e.preventDefault();
+  console.log(nameInput.value);
+  console.log(titleInput.value);
+});
+
+// clear text fields
+submitButton.addEventListener("click", function (e) {
+  e.preventDefault;
+
+  inputs.forEach((input) => {
+    input.value = "";
+  });
+  modal.style.display = "none";
+});
+
+window.addEventListener("click", function (e) {
+  if (e.target === modal || e.target === form || e.target === closeBtn) {
+    inputs.forEach((input) => {
+      input.value = "";
+    });
   }
 });
 
@@ -41,7 +82,7 @@ function Book(title, author, pages, readYet) {
 }
 
 function addBookToLibrary(title, author, pages, redYet) {
-  const newBook = new Book(title, author, pages, redYet);
+  let newBook = new Book(title, author, pages, redYet);
 
   myLibrary.push(newBook);
 }
