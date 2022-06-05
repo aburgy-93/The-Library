@@ -24,6 +24,9 @@ const submitButton = document.getElementById("submitBtn");
 const inputs = document.querySelectorAll("input");
 // close modal Submit Button // Needs to be redone DRY
 const closeModalSubmit = (modal.style.display = "none");
+// Radio Buttons
+const radioYesBtn = document.getElementById("yes");
+const radioNoBtn = document.getElementById("no");
 //////////////////////////////////////////////////////
 
 // Open Modal on Click
@@ -47,29 +50,86 @@ window.addEventListener("click", function (e) {
 
 document.querySelector("form.form").addEventListener("submit", function (e) {
   e.preventDefault();
-  console.log(nameInput.value);
-  console.log(titleInput.value);
+  // console.log(nameInput.value);
+  // console.log(titleInput.value);
 });
 
-// clear text fields
+// Radio Button Default
+radioYesBtn.checked = true;
+radioNoBtn.checked = false;
+
 submitButton.addEventListener("click", function (e) {
   e.preventDefault;
 
-  inputs.forEach((input) => {
-    input.value = "";
-  });
-  modal.style.display = "none";
-});
-
-window.addEventListener("click", function (e) {
-  if (e.target === modal || e.target === form || e.target === closeBtn) {
-    inputs.forEach((input) => {
-      input.value = "";
-    });
+  if (e.target === submitButton) {
+    radioYesBtn.checked = true;
   }
 });
 
-let myLibrary = [];
+window.addEventListener("click", function (e) {
+  if (e.target === modal || e.targer === form || e.target === closeBtn) {
+    radioYesBtn.checked = true;
+  }
+});
+
+// Adding books to Library
+// Holy shit it works...
+
+//////////////////////////////////////////////////////////////
+const books = document.querySelector(".books");
+
+let myLibrary = [
+  {
+    title: "book1",
+    author: "test",
+    pages: 500,
+    read: true,
+  },
+  {
+    title: "book2",
+    author: "test",
+    pages: 42096,
+    read: false,
+  },
+];
+
+// Add new card to main content
+
+function createBookElement(el, content, className) {
+  const element = document.createElement(el);
+  element.textContent = content;
+  element.setAttribute("class", className);
+  return element;
+}
+
+function createBookItem(book, index) {
+  const bookItem = document.createElement("div");
+  bookItem.setAttribute("id", index);
+  bookItem.setAttribute("key", index);
+  bookItem.setAttribute("class", "card-book");
+
+  bookItem.appendChild(
+    createBookElement("h1", `Title: ${book.title}`, "book-title")
+  );
+  bookItem.appendChild(
+    createBookElement("h1", `Author: ${book.author}`, "book-author")
+  );
+  bookItem.appendChild(
+    createBookElement("h1", `Pages: ${book.pages}`, "book-pages")
+  );
+  books.insertAdjacentElement("afterbegin", bookItem);
+}
+
+function renderBooks() {
+  myLibrary.map((book, index) => {
+    createBookItem(book, index);
+  });
+}
+
+renderBooks();
+
+// Get data from form and push to library
+const addBookForm = document.getElementById("userForm");
 
 function Book(title, author, pages, readYet) {
   this.title = title;
@@ -81,18 +141,34 @@ function Book(title, author, pages, readYet) {
   };
 }
 
-function addBookToLibrary(title, author, pages, redYet) {
-  let newBook = new Book(title, author, pages, redYet);
+addBookForm.addEventListener("submit", function (e) {
+  e.preventDefault();
 
-  myLibrary.push(newBook);
+  //make object from sumbitted info
+
+  const formData = Array.from(
+    document.querySelectorAll("#userForm input")
+  ).reduce((acc, input) => ({ ...acc, [input.id]: input.value }), {});
+  console.log(formData);
+
+  const { author, bookTitle, pgNumber, readYet } = formData;
+
+  console.log(author, bookTitle, pgNumber, readYet);
+
+  //calling addBookToLibrary function
+  addBookToLibrary(author, bookTitle, pgNumber);
+
+  document.getElementById("userForm").reset();
+
+  modal.style.display = "none";
+});
+
+function addBookToLibrary(title, author, pages, readYet) {
+  myLibrary.push(new Book(title, author, pages, readYet));
+  renderBooks();
+  console.log(myLibrary);
 }
-
-addBookToLibrary("The Hobbit", "J.R.R Tolkien", "295", "not read yet");
-addBookToLibrary("Good Clean Fun", "Nick Offerman", "341", "not read yet");
-
-// myLibrary.forEach(function (title) {
-//   console.log(title);
-// });
+///////////////////////////////////////////////////
 
 // const playerOne = {
 //   name: "tim",

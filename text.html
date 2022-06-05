@@ -18,7 +18,7 @@
         <fieldset>
           <span class="closeBtn">&times;</span>
           <div class="author">
-            <label for="author">Author</label>
+            <label for="author" id="'author">Author</label>
             <input type="text" id="author" class="text-input" />
           </div>
           <div class="title">
@@ -32,10 +32,10 @@
           <div class="readYet">
             <p>Have you read it?</p>
 
-            <input type="radio" id="yes" />
+            <input type="radio" id="yes" name="radAnswer" />
             <label for="">Yes</label>
 
-            <input type="radio" id="no" />
+            <input type="radio" id="no" name="radAnswer" />
             <label for="">No</label>
           </div>
           <div class="">
@@ -44,8 +44,22 @@
           </div>
         </fieldset>
       </form>
+    </div>
+
+    <!-- Main Contnent -->
+    <main class="content">
+      <h3>Your Books</h3>
+      <div class="books">
+        <!-- Section for all books -->
+        <div class="books"></div>
+      </div>
+    </main>
+    <!-- 
       <div class="container"></div>
     </div>
+    <button id="testButton" class="testButton">TEST</button>
+
+    <div id="div1"></div> -->
   </body>
   <script src="script.js"></script>
 </html>

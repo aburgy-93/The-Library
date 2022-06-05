@@ -124,3 +124,9 @@ input[type="submit"] {
   font-size: 25px;
   font-weight: bold;
 }
+
+.card-book {
+  border: solid 1px black;
+  gap: 15px;
+  background-color: aqua;
+}
