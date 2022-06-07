@@ -117,10 +117,14 @@ function createBookItem(book, index) {
   bookItem.appendChild(
     createBookElement("h1", `Pages: ${book.pages}`, "book-pages")
   );
+  bookItem.appendChild(
+    createBookElement("h1", `Read: ${book.readYet}`, "book-pages")
+  );
   books.insertAdjacentElement("afterbegin", bookItem);
 }
 
 function renderBooks() {
+  books.textContent = "";
   myLibrary.map((book, index) => {
     createBookItem(book, index);
   });
