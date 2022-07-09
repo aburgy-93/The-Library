@@ -1,5 +1,107 @@
+:root {
+  font-size: 16px;
+  --main-bg-color: #5e9ec2;
+  --secondary-bg-color: #43ded4;
+  --btn-hover-login: #43ded42a;
+  --button-clr: #cbf7ff;
+  --card-bg-clr: #f9f871;
+  --btn-hover-add: #cbf7ff8a;
+}
+
 html,
 body {
   margin: 0;
   height: 100%;
+  /* background-color: black; */
+}
+
+.body {
+  background: var(--main-bg-color);
+  display: grid;
+  grid-template-rows: 100px 100px 1fr;
+}
+
+.header {
+  background: var(--secondary-bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 500px;
+  box-shadow: 2px 5px 0px rgba(32, 26, 26, 0.1);
+}
+
+.header button {
+  border: none;
+  border-radius: 15px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  height: 48px;
+  width: 96px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  background: var(--button-clr);
+  height: 48px;
+  width: 96px;
+}
+
+button {
+  background: var(--button-clr);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content .addBook {
+  border: none;
+  border-radius: 15px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  height: 50px;
+  width: 150px;
+}
+
+.addBook:hover {
+  cursor: pointer;
+  background: var(--btn-hover-add);
+}
+
+.logIn:hover {
+  cursor: pointer;
+  /* background: var(--btn-hover-login); */
+}
+
+.library:hover {
+  cursor: pointer;
+  background: var(--btn-hover);
+}
+
+.container {
+  grid-area: 3/1/4/2;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 25px;
+}
+
+.books {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 250px));
+  margin-left: 25px;
+}
+
+.card-book {
+  background: var(--card-bg-clr);
+
+  font-size: 0.8rem;
+  border: solid 5px black;
+  height: 200px;
+  width: 200px;
+  margin-bottom: 15px;
 }
