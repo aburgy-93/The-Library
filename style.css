@@ -93,7 +93,7 @@ button {
 .books {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 250px));
-  margin-left: 25px;
+  margin-left: 90px;
 }
 
 .card-book {
@@ -105,3 +105,71 @@ button {
   width: 200px;
   margin-bottom: 15px;
 }
+
+.modal {
+  display: none;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  height: 300px;
+  width: 300px;
+  border: 1px solid black;
+  background-color: lightgray;
+}
+
+.newBook {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 25px;
+}
+
+.form button {
+  width: 50px;
+  border-radius: 10px;
+  border: none;
+}
+
+.form input {
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  height: 30px;
+}
+
+.closeModalBtn {
+  height: 40px;
+  width: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  /* border: 1px solid red; */
+  cursor: pointer;
+}
+
+.newBook {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+/* #book_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+} */

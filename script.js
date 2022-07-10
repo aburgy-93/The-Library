@@ -2,34 +2,12 @@
 
 const body = document.querySelector(".body");
 const books = document.querySelector(".books");
-const submitBtn = document.querySelector(".addBook");
+const addBook = document.querySelector(".addBook");
+const modal = document.querySelector(".modal");
+const closeModalBtn = document.querySelector(".closeModalBtn");
+const form = document.querySelector(".form");
 
 let myLibrary = [
-  {
-    author: "John",
-    title: "Test",
-    pages: 296,
-  },
-  {
-    author: "John",
-    title: "Test",
-    pages: 296,
-  },
-  {
-    author: "John",
-    title: "Test",
-    pages: 296,
-  },
-  {
-    author: "John",
-    title: "Test",
-    pages: 296,
-  },
-  {
-    author: "John",
-    title: "Test",
-    pages: 296,
-  },
   {
     author: "John",
     title: "Test",
@@ -92,3 +70,24 @@ function renderBooks() {
 }
 
 renderBooks();
+
+// close modal function
+// function closeModal(){
+//   document.querySelector('.modal').style.display = 'none'
+// }
+
+addBook.addEventListener("click", function (e) {
+  e.preventDefault;
+  modal.style.display = "block";
+});
+
+closeModalBtn.addEventListener("click", function (e) {
+  e.preventDefault;
+  modal.style.display = "none";
+});
+
+window.addEventListener("click", function (e) {
+  if (e.target === modal || e.target === form) {
+    document.querySelector(".modal").style.display = "none";
+  }
+});
