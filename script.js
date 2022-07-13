@@ -6,6 +6,24 @@ const addBook = document.querySelector(".addBook");
 const modal = document.querySelector(".modal");
 const closeModalBtn = document.querySelector(".closeModalBtn");
 const form = document.querySelector(".form");
+const readBtn = document.querySelector(".readYet");
+const addBookBtn = document.querySelector(".add");
+
+addBook.addEventListener("click", function (e) {
+  e.preventDefault;
+  modal.style.display = "block";
+});
+
+closeModalBtn.addEventListener("click", function (e) {
+  e.preventDefault;
+  modal.style.display = "none";
+});
+
+document.addEventListener("click", function (e) {
+  if (e.target === modal) {
+    document.querySelector(".modal").style.display = "none";
+  }
+});
 
 let myLibrary = [
   {
@@ -19,20 +37,6 @@ let myLibrary = [
     pages: 296,
   },
 ];
-
-function Book(author, title, pages, readYet) {
-  (this.author = author),
-    (this.title = title),
-    (this.title = pages),
-    (this.readYet = readYet);
-
-  return `${title}, ${author}, ${pages}, ${readYet}`;
-}
-
-function addBookeToLibrary(author, title, pages, readYet) {
-  myLibrary.push(new Book(author, title, pages, readYet));
-  console.log(myLibrary);
-}
 
 function createBookElement(el, content, className) {
   const element = document.createElement(el);
@@ -71,23 +75,43 @@ function renderBooks() {
 
 renderBooks();
 
+function Book(author, title, pages, readYet) {
+  (this.author = author),
+    (this.title = title),
+    (this.title = pages),
+    (this.readYet = readYet);
+
+  return `${title}, ${author}, ${pages}, ${readYet}`;
+}
+
 // close modal function
 // function closeModal(){
 //   document.querySelector('.modal').style.display = 'none'
 // }
 
-addBook.addEventListener("click", function (e) {
+addBookBtn.addEventListener("click", function (e) {
   e.preventDefault;
-  modal.style.display = "block";
-});
+  //make object from sumbitted info
 
-closeModalBtn.addEventListener("click", function (e) {
-  e.preventDefault;
+  const formData = Array.from(document.querySelectorAll(".form input")).reduce(
+    (acc, input) => ({ ...acc, [input.id]: input.value }),
+    {}
+  );
+  console.log(formData);
+
+  const { author, bookTitle, pgNumber, readYet } = formData;
+
+  console.log(author, bookTitle, pgNumber, readYet);
+
+  //calling addBookToLibrary function
+  addBookToLibrary(author, bookTitle, pgNumber);
+
+  // document.querySelector(".form").reset();
+
   modal.style.display = "none";
 });
 
-window.addEventListener("click", function (e) {
-  if (e.target === modal || e.target === form) {
-    document.querySelector(".modal").style.display = "none";
-  }
-});
+function addBookToLibrary(author, title, pages, readYet) {
+  myLibrary.push(new Book(author, title, pages, readYet));
+  renderBooks();
+}
