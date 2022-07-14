@@ -8,30 +8,33 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body class="body">
-    <div class="container">
-      <header class="header">HEADER</header>
-      <div class="center">
-        <button id="modalBtn" class="add-button">Add Book+</button>
+    <header class="header">
+      <div class="title">
+        <h2 class="library">Library</h2>
       </div>
-
-      <!-- Main Contnent -->
-      <main class="main">
-        <div class="projects">
-          <h3>Your Books</h3>
-          <div class="content">
-            <div class="books">
-              <!-- Section for all books -->
-            </div>
-          </div>
-        </div>
-      </main>
+      <button class="logIn">Log In</button>
+    </header>
+    <div class="modal-btn">
+      <button id="modalBtn" class="add-button">Add Book+</button>
     </div>
+
+    <!-- Main Contnent -->
+    <main class="main">
+      <h3>Your Books</h3>
+      <div class="content">
+        <div class="books">
+          <!-- Section for all books -->
+        </div>
+      </div>
+    </main>
 
     <div id="modal" class="modal">
       <div class="modal-content">
-        <span class="close">X</span>
-        <div class="modal-form">
+        <div class="newBook">
           <h1 class="form-title">Add Book</h1>
+          <span class="close">X</span>
+        </div>
+        <div class="modal-form">
           <form action="" class="add-book-form">
             <div class="modal-input-field">
               <label for="book-title">Title:</label>
