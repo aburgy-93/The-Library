@@ -6,6 +6,8 @@ const modal = document.querySelector(".modal");
 const closeBtn = document.querySelector(".close");
 const editBtn = document.querySelector(".edit");
 
+// Opening and closing the modal
+
 addBook.addEventListener("click", function (e) {
   e.preventDefault;
 
@@ -25,6 +27,8 @@ window.addEventListener("click", function (e) {
   }
 });
 
+// Creating a new Book Object
+
 function Book(title, author, pages, read) {
   (this.title = title),
     (this.author = author),
@@ -33,18 +37,24 @@ function Book(title, author, pages, read) {
   this.id = Math.floor(Math.random() * 1000000);
 }
 
+// Adding the book object to the Library
+
 function addBookToLibrary(title, author, pages, read) {
   myLibrary.push(new Book(title, author, pages, read));
   saveAndRenderBooks();
 }
 
+//Getting the form data
+
 const addBookForm = document.querySelector(".add-book-form");
 addBookForm.addEventListener("submit", (e) => {
   e.preventDefault;
 
+  // Putting form data into data variable
   const data = new FormData(e.target);
 
   let newBook = {};
+  // Need to understand this better
   for (let [name, value] of data) {
     if (name === "book-read") {
       newBook["book-read"] = true;
@@ -67,10 +77,14 @@ addBookForm.addEventListener("submit", (e) => {
 
 let myLibrary = [];
 
+// Local storage
+
 function addLocalStorage() {
   myLibrary = JSON.parse(localStorage.getItem("library")) || [];
   saveAndRenderBooks();
 }
+
+// Creating a book element
 
 function createBookElement(el, content, className) {
   const element = document.createElement(el);
@@ -78,6 +92,8 @@ function createBookElement(el, content, className) {
   element.setAttribute("class", className);
   return element;
 }
+
+// Displaying the card
 
 function createReadElement(bookItem, book) {
   const read = document.createElement("div");
@@ -161,6 +177,15 @@ function saveAndRenderBooks() {
 
 addLocalStorage();
 
+const pizza = {
+  topping: "cheese",
+  sauce: "marinara",
+  size: "small",
+};
+
+for (let [key, value] of Object.entries(pizza)) {
+  console.log(key, value);
+}
 // // const addBookButton = document
 // //   .querySelector(".addBook")
 // //   .addEventListener("click", function () {});
