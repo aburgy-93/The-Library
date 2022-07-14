@@ -1,99 +1,76 @@
 "use strict";
 
-// const addBookButton = document
-//   .querySelector(".addBook")
-//   .addEventListener("click", function () {});
+const books = document.querySelector(".books");
+const addBook = document.querySelector(".add-button");
+const modal = document.querySelector(".modal");
+const closeBtn = document.querySelector(".close");
+const editBtn = document.querySelector(".edit");
 
-// Get modal
-const modal = document.getElementById("simpleModal");
-// Get form
-const form = document.getElementById("userForm");
-// Show modal
-const modalBtn = document.getElementById("modalBtn");
-// Close modal X Button
-const closeBtn = document.querySelector(".closeBtn");
-// close modal bacground click
-const closeModal = document.querySelector(".form");
-// Get input from form
-let nameInput = document.getElementById("author");
-let titleInput = document.getElementById("bookTitle");
-//textboxes
-const textbox = document.querySelectorAll("#author bookTitle");
-const submitButton = document.getElementById("submitBtn");
-// Inputs
-const inputs = document.querySelectorAll("input");
-// close modal Submit Button // Needs to be redone DRY
-const closeModalSubmit = (modal.style.display = "none");
-// Radio Buttons
-const radioYesBtn = document.getElementById("yes");
-const radioNoBtn = document.getElementById("no");
-//////////////////////////////////////////////////////
+addBook.addEventListener("click", function (e) {
+  e.preventDefault;
 
-// Open Modal on Click
-modalBtn.addEventListener("click", function () {
   modal.style.display = "block";
 });
 
-// Close modal on click
-closeBtn.addEventListener("click", function () {
+closeBtn.addEventListener("click", function (e) {
+  e.preventDefault;
+
   modal.style.display = "none";
 });
 
-// Close modal window
 window.addEventListener("click", function (e) {
-  if (e.target === modal || e.target === form) {
+  e.preventDefault;
+  if (e.target === modal) {
     document.querySelector(".modal").style.display = "none";
   }
 });
 
-//get value of a text input
+function Book(title, author, pages, read) {
+  (this.title = title),
+    (this.author = author),
+    (this.pages = pages),
+    (this.read = read);
+  this.id = Math.floor(Math.random() * 1000000);
+}
 
-document.querySelector("form.form").addEventListener("submit", function (e) {
-  e.preventDefault();
-  // console.log(nameInput.value);
-  // console.log(titleInput.value);
-});
+function addBookToLibrary(title, author, pages, read) {
+  myLibrary.push(new Book(title, author, pages, read));
+  saveAndRenderBooks();
+}
 
-// Radio Button Default
-radioYesBtn.checked = true;
-radioNoBtn.checked = false;
-
-submitButton.addEventListener("click", function (e) {
+const addBookForm = document.querySelector(".add-book-form");
+addBookForm.addEventListener("submit", (e) => {
   e.preventDefault;
 
-  if (e.target === submitButton) {
-    radioYesBtn.checked = true;
+  const data = new FormData(e.target);
+
+  let newBook = {};
+  for (let [name, value] of data) {
+    if (name === "book-read") {
+      newBook["book-read"] = true;
+    } else {
+      newBook[name] = value || "";
+    }
   }
+
+  if (!newBook["book-read"]) {
+    newBook["book-read"] = false;
+  }
+
+  addBookToLibrary(
+    newBook["book-title"],
+    newBook["book-author"],
+    newBook["book-pages"],
+    newBook["book-read"]
+  );
 });
 
-window.addEventListener("click", function (e) {
-  if (e.target === modal || e.targer === form || e.target === closeBtn) {
-    radioYesBtn.checked = true;
-  }
-});
+let myLibrary = [];
 
-// Adding books to Library
-// Holy shit it works...
-
-//////////////////////////////////////////////////////////////
-const books = document.querySelector(".books");
-
-let myLibrary = [
-  {
-    title: "book1",
-    author: "test",
-    pages: 500,
-    read: true,
-  },
-  {
-    title: "book2",
-    author: "test",
-    pages: 42096,
-    read: false,
-  },
-];
-
-// Add new card to main content
+function addLocalStorage() {
+  myLibrary = JSON.parse(localStorage.getItem("library")) || [];
+  saveAndRenderBooks();
+}
 
 function createBookElement(el, content, className) {
   const element = document.createElement(el);
@@ -102,12 +79,53 @@ function createBookElement(el, content, className) {
   return element;
 }
 
+function createReadElement(bookItem, book) {
+  const read = document.createElement("div");
+  read.setAttribute("class", "book-read");
+  read.appendChild(createBookElement("h1", "Read?", "book-read-title"));
+  const input = document.createElement("input");
+  input.type = "checkbox";
+  input.addEventListener("click", (e) => {
+    if (e.target.checked) {
+      bookItem.setAttribute("class", "card-book read-checked");
+      book.read = true;
+      saveAndRenderBooks();
+    } else {
+      bookItem.setAttribute("class", "card-book read-unchecked");
+      book.read = false;
+      saveAndRenderBooks();
+    }
+  });
+  if (book.read) {
+    input.checked = true;
+    bookItem.setAttribute("class", "card-book read-checked");
+  }
+  read.appendChild(input);
+  return read;
+}
+
+function deleteBook(index) {
+  myLibrary.splice(index, 1);
+  saveAndRenderBooks();
+}
+
+// function fillOutEditForm(book) {
+//   modal.style.display = "block";
+//   document.querySelector(".form-title").textContent = "Edit Book";
+//   document.querySelector(".form-add-button").textContent = "Edit";
+//   document.querySelector("#book-title").value = book.title || "";
+//   document.querySelector("#book-author").value = book.author || "";
+//   document.querySelector("#book-pages").value = book.pages || "";
+//   document.querySelector("#book-read").checked = book.read;
+
+//   fillOutEditForm();
+// }
+
 function createBookItem(book, index) {
   const bookItem = document.createElement("div");
   bookItem.setAttribute("id", index);
   bookItem.setAttribute("key", index);
   bookItem.setAttribute("class", "card-book");
-
   bookItem.appendChild(
     createBookElement("h1", `Title: ${book.title}`, "book-title")
   );
@@ -117,9 +135,14 @@ function createBookItem(book, index) {
   bookItem.appendChild(
     createBookElement("h1", `Pages: ${book.pages}`, "book-pages")
   );
-  bookItem.appendChild(
-    createBookElement("h1", `Read: ${book.readYet}`, "book-pages")
-  );
+
+  bookItem.appendChild(createReadElement(bookItem, book));
+  bookItem.appendChild(createBookElement("button", "X", "delete"));
+  bookItem.appendChild(createBookElement("button", "Edit", "edit"));
+
+  bookItem.querySelector(".delete").addEventListener("click", () => {
+    deleteBook(index);
+  });
   books.insertAdjacentElement("afterbegin", bookItem);
 }
 
@@ -130,48 +153,185 @@ function renderBooks() {
   });
 }
 
-renderBooks();
-
-// Get data from form and push to library
-const addBookForm = document.getElementById("userForm");
-
-function Book(title, author, pages, readYet) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.readYet = readYet;
-  this.bookDetails = function () {
-    return `${title}, ${author}, ${pages}, ${readYet}`;
-  };
-}
-
-addBookForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  //make object from sumbitted info
-
-  const formData = Array.from(
-    document.querySelectorAll("#userForm input")
-  ).reduce((acc, input) => ({ ...acc, [input.id]: input.value }), {});
-  console.log(formData);
-
-  const { author, bookTitle, pgNumber, readYet } = formData;
-
-  console.log(author, bookTitle, pgNumber, readYet);
-
-  //calling addBookToLibrary function
-  addBookToLibrary(author, bookTitle, pgNumber);
-
-  document.getElementById("userForm").reset();
-
-  modal.style.display = "none";
-});
-
-function addBookToLibrary(title, author, pages, readYet) {
-  myLibrary.push(new Book(title, author, pages, readYet));
+function saveAndRenderBooks() {
+  localStorage.setItem("library", JSON.stringify(myLibrary));
   renderBooks();
-  console.log(myLibrary);
 }
+
+addLocalStorage();
+
+// // const addBookButton = document
+// //   .querySelector(".addBook")
+// //   .addEventListener("click", function () {});
+
+// // Get modal
+// const modal = document.getElementById("simpleModal");
+// // Get form
+// const form = document.getElementById("userForm");
+// // Show modal
+// const modalBtn = document.getElementById("modalBtn");
+// // Close modal X Button
+// const closeBtn = document.querySelector(".closeBtn");
+// // close modal bacground click
+// const closeModal = document.querySelector(".form");
+// // Get input from form
+// let nameInput = document.getElementById("author");
+// let titleInput = document.getElementById("bookTitle");
+// //textboxes
+// const textbox = document.querySelectorAll("#author bookTitle");
+// const submitButton = document.getElementById("submitBtn");
+// // Inputs
+// const inputs = document.querySelectorAll("input");
+// // close modal Submit Button // Needs to be redone DRY
+// const closeModalSubmit = (modal.style.display = "none");
+// // Radio Buttons
+// const radioYesBtn = document.getElementById("yes");
+// const radioNoBtn = document.getElementById("no");
+// //////////////////////////////////////////////////////
+
+// // Open Modal on Click
+// modalBtn.addEventListener("click", function () {
+//   modal.style.display = "block";
+// });
+
+// // Close modal on click
+// closeBtn.addEventListener("click", function () {
+//   modal.style.display = "none";
+// });
+
+// // Close modal window
+// window.addEventListener("click", function (e) {
+//   if (e.target === modal || e.target === form) {
+//     document.querySelector(".modal").style.display = "none";
+//   }
+// });
+
+// //get value of a text input
+
+// document.querySelector("form.form").addEventListener("submit", function (e) {
+//   e.preventDefault();
+//   // console.log(nameInput.value);
+//   // console.log(titleInput.value);
+// });
+
+// // Radio Button Default
+// radioYesBtn.checked = true;
+// radioNoBtn.checked = false;
+
+// submitButton.addEventListener("click", function (e) {
+//   e.preventDefault;
+
+//   if (e.target === submitButton) {
+//     radioYesBtn.checked = true;
+//   }
+// });
+
+// window.addEventListener("click", function (e) {
+//   if (e.target === modal || e.targer === form || e.target === closeBtn) {
+//     radioYesBtn.checked = true;
+//   }
+// });
+
+// // Adding books to Library
+// // Holy shit it works...
+
+// //////////////////////////////////////////////////////////////
+// const books = document.querySelector(".books");
+
+// let myLibrary = [
+//   {
+//     title: "book1",
+//     author: "test",
+//     pages: 500,
+//     read: true,
+//   },
+//   {
+//     title: "book2",
+//     author: "test",
+//     pages: 42096,
+//     read: false,
+//   },
+// ];
+
+// // Add new card to main content
+
+// function createBookElement(el, content, className) {
+//   const element = document.createElement(el);
+//   element.textContent = content;
+//   element.setAttribute("class", className);
+//   return element;
+// }
+
+// function createBookItem(book, index) {
+//   const bookItem = document.createElement("div");
+//   bookItem.setAttribute("id", index);
+//   bookItem.setAttribute("key", index);
+//   bookItem.setAttribute("class", "card-book");
+
+//   bookItem.appendChild(
+//     createBookElement("h1", `Title: ${book.title}`, "book-title")
+//   );
+//   bookItem.appendChild(
+//     createBookElement("h1", `Author: ${book.author}`, "book-author")
+//   );
+//   bookItem.appendChild(
+//     createBookElement("h1", `Pages: ${book.pages}`, "book-pages")
+//   );
+//   bookItem.appendChild(
+//     createBookElement("h1", `Read: ${book.readYet}`, "book-pages")
+//   );
+//   books.insertAdjacentElement("afterbegin", bookItem);
+// }
+
+// function renderBooks() {
+//   books.textContent = "";
+//   myLibrary.map((book, index) => {
+//     createBookItem(book, index);
+//   });
+// }
+
+// renderBooks();
+
+// // Get data from form and push to library
+// const addBookForm = document.getElementById("userForm");
+
+// function Book(title, author, pages, readYet) {
+//   this.title = title;
+//   this.author = author;
+//   this.pages = pages;
+//   this.readYet = readYet;
+//   this.bookDetails = function () {
+//     return `${title}, ${author}, ${pages}, ${readYet}`;
+//   };
+// }
+
+// addBookForm.addEventListener("submit", function (e) {
+//   e.preventDefault();
+
+//   //make object from sumbitted info
+
+//   const formData = Array.from(
+//     document.querySelectorAll("#userForm input")
+//   ).reduce((acc, input) => ({ ...acc, [input.id]: input.value }), {});
+//   console.log(formData);
+
+//   const { author, bookTitle, pgNumber, readYet } = formData;
+
+//   console.log(author, bookTitle, pgNumber, readYet);
+
+//   //calling addBookToLibrary function
+//   addBookToLibrary(author, bookTitle, pgNumber);
+
+//   document.getElementById("userForm").reset();
+
+//   modal.style.display = "none";
+// });
+
+// function addBookToLibrary(title, author, pages, readYet) {
+//   myLibrary.push(new Book(title, author, pages, readYet));
+//   renderBooks();
+//   console.log(myLibrary);
+// }
 ///////////////////////////////////////////////////
 
 // const playerOne = {

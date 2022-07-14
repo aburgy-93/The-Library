@@ -11,55 +11,73 @@
     <div class="container">
       <header class="header">HEADER</header>
       <div class="center">
-        <button id="modalBtn" class="button">Add Book+</button>
+        <button id="modalBtn" class="add-button">Add Book+</button>
       </div>
 
       <!-- Main Contnent -->
-      <h3>Your Books</h3>
-      <div class="content">
-        <div class="books">
-          <!-- Section for all books -->
+      <main class="main">
+        <div class="projects">
+          <h3>Your Books</h3>
+          <div class="content">
+            <div class="books">
+              <!-- Section for all books -->
+            </div>
+          </div>
         </div>
-      </div>
-      <!-- 
-        <div class="container"></div>
-      </div>
-      <button id="testButton" class="testButton">TEST</button>
-  
-      <div id="div1"></div> -->
+      </main>
     </div>
 
-    <div id="simpleModal" class="modal">
-      <form action="" method="" id="userForm" class="form">
-        <fieldset>
-          <span class="closeBtn">&times;</span>
-          <div class="author">
-            <label for="author" id="'author">Author</label>
-            <input type="text" id="author" class="text-input" />
-          </div>
-          <div class="title">
-            <label for="bookTitle">Title</label>
-            <input type="text" id="bookTitle" class="text-input" />
-          </div>
-          <div class="pages">
-            <label for="pgNumber">Pages</label>
-            <input type="number" id="pgNumber" />
-          </div>
-          <div class="readYet">
-            <p>Have you read it?</p>
-
-            <input type="radio" id="yes" name="radAnswer" />
-            <label for="">Yes</label>
-
-            <input type="checkbox" id="no" name="radAnswer" />
-            <label for="">No</label>
-          </div>
-          <div class="">
-            <button id="submitBtn" class="button">Submit</button>
-            <!-- <input type="submit" id="sumbit" value="Submit" /> -->
-          </div>
-        </fieldset>
-      </form>
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close">X</span>
+        <div class="modal-form">
+          <h1 class="form-title">Add Book</h1>
+          <form action="" class="add-book-form">
+            <div class="modal-input-field">
+              <label for="book-title">Title:</label>
+              <input
+                type="text"
+                name="book-title"
+                id="book-title"
+                class="modal-form-input"
+              />
+            </div>
+            <div class="modal-input-field">
+              <label for="book-author">Author:</label>
+              <input
+                type="text"
+                name="book-author"
+                id="book-author"
+                class="modal-form-input"
+              />
+            </div>
+            <div class="modal-input-field">
+              <label for="book-pages">Pages:</label>
+              <input
+                type="number"
+                min="0"
+                name="book-pages"
+                id="book-pages"
+                class="modal-form-input"
+              />
+            </div>
+            <div class="modal-input-field">
+              <span class="modal-read">Read?</span>
+              <label class="container-read">
+                <input
+                  type="checkbox"
+                  name="book-read"
+                  id="book-read"
+                  class="checkmark"
+                />
+              </label>
+            </div>
+            <div class="submit-modal-form">
+              <button type="submit" class="btn form-add-button">Add</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </body>
 
