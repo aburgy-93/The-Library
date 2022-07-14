@@ -109,17 +109,18 @@ function deleteBook(index) {
   saveAndRenderBooks();
 }
 
-// function fillOutEditForm(book) {
-//   modal.style.display = "block";
-//   document.querySelector(".form-title").textContent = "Edit Book";
-//   document.querySelector(".form-add-button").textContent = "Edit";
-//   document.querySelector("#book-title").value = book.title || "";
-//   document.querySelector("#book-author").value = book.author || "";
-//   document.querySelector("#book-pages").value = book.pages || "";
-//   document.querySelector("#book-read").checked = book.read;
-
+// editBtn.addEventListener("click", (e) => {
+//   function fillOutEditForm() {
+//     modal.style.display = "block";
+//     document.querySelector(".form-title").textContent = "Edit Book";
+//     document.querySelector(".form-add-button").textContent = "Edit";
+//     document.querySelector("#book-title").value = "";
+//     document.querySelector("#book-author").value = "";
+//     document.querySelector("#book-pages").value = "";
+//     document.querySelector("#book-read").checked = "read";
+//   }
 //   fillOutEditForm();
-// }
+// });
 
 function createBookItem(book, index) {
   const bookItem = document.createElement("div");
