@@ -30,9 +30,9 @@
 
     <div id="modal" class="modal">
       <div class="modal-content">
+        <span class="close">X</span>
         <div class="newBook">
           <h1 class="form-title">Add Book</h1>
-          <span class="close">X</span>
         </div>
         <div class="modal-form">
           <form action="" class="add-book-form">
@@ -65,15 +65,17 @@
               />
             </div>
             <div class="modal-input-field">
-              <span class="modal-read">Read?</span>
-              <label class="container-read">
-                <input
-                  type="checkbox"
-                  name="book-read"
-                  id="book-read"
-                  class="checkmark"
-                />
-              </label>
+              <div class="read-modal">
+                <span class="modal-read">Read?</span>
+                <label class="container-read">
+                  <input
+                    type="checkbox"
+                    name="book-read"
+                    id="book-read"
+                    class="checkmark"
+                  />
+                </label>
+              </div>
             </div>
             <div class="submit-modal-form">
               <button type="submit" class="btn form-add-button">Add</button>
